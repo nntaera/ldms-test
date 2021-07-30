@@ -346,7 +346,7 @@ class LDMSD(Proc):
 
     def getCmdline(self, gdb=False):
         _edir = self.getExpectedDir()
-        self.mem_opt = " -m {} ".format(MEM_PER_SET*len(_edir))
+        self.mem_opt = " -m {}K ".format(2*len(_edir))
         cmd = "{gdb} " \
               "ldmsd {fg} -c {conf_file} -r {pid_file} -l {log_file} " \
               "-v {log_level} {mem_opt}" \
