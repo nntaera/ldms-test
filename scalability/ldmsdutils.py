@@ -509,14 +509,57 @@ class LDMSD(Proc):
         return { 'sets': sets, 'set_state_summary': counts }
 
     def dir(self):
+        self.t0 = time.time()
         if not self._conn:
             self.connect()
-        return self._conn.dir()
+        self._dirs = self._conn.dir()
+        self.t1 = time.time()
+        return self._dirs
 
-    def lookup(self, name):
+    def lookup(self, names=None):
+        self.t0 = time.time()
         if not self._conn:
             self.connect()
-        return self._conn.lookup(name)
+        if type(names) == list:
+            _list = names
+        elif type(names) == str:
+            _list = [names]
+        elif names is None and self._dirs:
+            _list = [ d.name for d in self._dirs ]
+        else:
+            raise ValueError("`names` is required")
+        self._sets = [self._conn.lookup(s) for s in _list]
+        self.t1 = time.time()
+        return self._sets
+
+    def update(self, sets=None):
+        self.t0 = time.time()
+        _sets = sets
+        if not _sets:
+            _sets = self._sets
+        for s in _sets:
+            s.update()
+        self.t1 = time.time()
+
+    def min_ts(self):
+        t = self._sets[0].transaction_timestamp
+        _min = t['sec'] + t['usec']*1e-6
+        for s in self._sets:
+            t = s.transaction_timestamp
+            t = t['sec'] + t['usec']*1e-6
+            if t < _min:
+                _min = t
+        return _min
+
+    def max_ts(self):
+        t = self._sets[0].transaction_timestamp
+        _max = t['sec'] + t['usec']*1e-6
+        for s in self._sets:
+            t = s.transaction_timestamp
+            t = t['sec'] + t['usec']*1e-6
+            if t > _max:
+                _max = t
+        return _max
 
     def wait_set_removed(self, rm_sets=None, timeout=0, interval=10):
         logger.info("{}: waiting for set removal".format(self.name))

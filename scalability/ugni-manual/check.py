@@ -22,16 +22,15 @@ l3_list = LDMSD_L3.allDaemons()
 aggs = l1_list + l2_list + l3_list
 daemons = { a.name: a for a in samp_list + l1_list + l2_list + l3_list }
 
-samp = samp_list[0]
-samp_dirs = samp.dir()
-samp_good = good_dirs(samp_dirs)
-print("samp_good:", len(samp_good))
-print("samp_dirs:", len(samp_dirs))
-
-if False:
-    samp_sets = [ samp.lookup(d.name) for d in samp_dirs ]
-    for s in samp_sets:
-        s.update()
+if True:
+    samp = samp_list[0]
+    samp_dirs = samp.dir()
+    samp_good = good_dirs(samp_dirs)
+    print("samp_good:", len(samp_good))
+    print("samp_dirs:", len(samp_dirs))
+    if False:
+        samp.lookup()
+        samp.update()
 
 if True:
     l1 = l1_list[0]
@@ -39,19 +38,16 @@ if True:
     l1_good = good_dirs(l1_dirs)
     print("l1_good:", len(l1_good))
     print("l1_dirs:", len(l1_dirs))
-#SP0 = l1.prdcr_set_status()
-#RDY0 = ready_sets(SP0)
-#print("SP0 summary:", SP0['set_state_summary'])
-#print("SP0 num sets:", len(SP0['sets']))
-#print("len(RDY0)", len(RDY0))
+    if False:
+        l1.lookup()
+        l1.update()
 
-#l1_dirs = l1.dir()
-#l1_good = good_dirs(l1_dirs)
-#print("len(l1_good)", len(l1_good))
-
-if True:
+if False:
     l2 = l2_list[0]
     l2_dirs = l2.dir()
     l2_good = good_dirs(l2_dirs)
     print("l2_good:", len(l2_good))
     print("l2_dirs:", len(l2_dirs))
+    if True:
+        l2.lookup()
+        l2.update()
