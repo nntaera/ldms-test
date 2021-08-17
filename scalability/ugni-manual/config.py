@@ -40,7 +40,7 @@ LOG_LEVEL = os.getenv("LOG_LEVEL", "ERROR")
 # List of hosts to run sampler daemons
 SAMP_HOSTS = [ "nid00062" ]
 SAMP_PER_HOST = 1 # number of sampler daemons per host in SAMP_HOSTS
-SETS_PER_SAMP = 65536 # number of sets per sampler daemon
+SETS_PER_SAMP = 16 # number of sets per sampler daemon
 MEM_PER_SET = 4096 # bytes per set
 
 # List of hosts to run L1 aggregators

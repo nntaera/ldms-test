@@ -12,8 +12,8 @@ CLUSTER_NAME = "cygnus"
 TADA_ADDR = "localhost:9862"
 
 # == Runtime configuration == #
-SSH_PORT = 22 # SSH port to remotely execute commands on participating hosts
-DEBUG = False # `True` to run in debug mode
+SSH_PORT = 22222 # SSH port to remotely execute commands on participating hosts
+DEBUG = True # `True` to run in debug mode
 WORK_DIR = os.path.dirname(os.path.abspath(__file__)) # default: the source dir
 which_ldmsd = shutil.which("ldmsd")
 default_prefix = "/opt/ovis" if not which_ldmsd else \
@@ -29,29 +29,31 @@ OVIS_PREFIX = os.getenv("OVIS_PREFIX", default_prefix)
 # the case that we're testing "rdma" transport that will use the Infiniband
 # hostname variant (e.g. "node-1-ib"), `MYHOST` shall be:
 #   MYHOST = gethostname().split('.', 1)[0] + "-ib"
-MYHOST = gethostname().split('.', 1)[0] + "-iw"
+#   MYHOST = gethostname().split('.', 1)[0] + "-iw"
+MYHOST = gethostname().split('.', 1)[0]
 
 # LDMS transport type
-XPRT = os.getenv("XPRT", "rdma")
+XPRT = os.getenv("XPRT", "ugni")
 
 # Logging level for ldmsd.
 LOG_LEVEL = os.getenv("LOG_LEVEL", "ERROR")
 
 # List of hosts to run sampler daemons
-SAMP_HOSTS = [ "cygnus-0{}-iw".format(i) for i in range(1, 5) ]
-SAMP_PER_HOST = 64 # number of sampler daemons per host in SAMP_HOSTS
-SETS_PER_SAMP = 4 # number of sets per sampler daemon
+SAMP_HOSTS = [ "nid00062" ]
+SAMP_PER_HOST = 8 # number of sampler daemons per host in SAMP_HOSTS
+SETS_PER_SAMP = 8 # number of sets per sampler daemon
+MEM_PER_SET = 4096 # bytes per set
 
 # List of hosts to run L1 aggregators
-L1_HOSTS = [ "cygnus-05-iw", "cygnus-06-iw" ]
-L1_PER_HOST = 8 # number of L1 aggregators per host in L1_HOSTS
+L1_HOSTS = [ "nid00063" ]
+L1_PER_HOST = 4 # number of L1 aggregators per host in L1_HOSTS
 
 # List of hosts to run L2 aggregators
-L2_HOSTS = [ "cygnus-07-iw" ]
-L2_PER_HOST = 4 # number of L2 aggregators per host in L2_HOSTS
+L2_HOSTS = [ "nid00063" ]
+L2_PER_HOST = 2 # number of L2 aggregators per host in L2_HOSTS
 
 # The host (not a list of hosts) that run L3 aggregator
-L3_HOST = "cygnus-08-iw"
+L3_HOST = "nid00063"
 
 # The listening port of a daemon will be `base + daemon_index` and
 # `HOST-PORT` becomes the name of the daemon. If a host run multiple levels of

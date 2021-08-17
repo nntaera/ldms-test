@@ -171,6 +171,7 @@ if True: # The data generation part (w/ ldms dir verification)
     ctrl.stop(prdcrs, timeout=10)
     rm_sets = set(s for d in prdcrs for s in daemons[d].getExpectedDir())
     l3.wait_set_removed(rm_sets = rm_sets, timeout = 60)
+    time.sleep(10)
     dir_verify(aggs, 2, rm_sets, rm_level = 0)
 
     #test.add_assertion(3, "Resurrect samplers of L1 agg and check all aggregators")
@@ -186,6 +187,7 @@ if True: # The data generation part (w/ ldms dir verification)
     ctrl.stop([l11.name], timeout=10)
     rm_sets = set(l11.getExpectedDir())
     l3.wait_set_removed(rm_sets = rm_sets, timeout = 60)
+    time.sleep(10)
     _aggs = [ d for d in aggs if d.name != l11.name ]
     dir_verify(_aggs, 4, rm_sets, rm_level = 1)
 
