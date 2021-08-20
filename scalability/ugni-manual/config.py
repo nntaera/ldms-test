@@ -52,7 +52,7 @@ L2_HOSTS = [ "nid00062" ]
 L2_PER_HOST = 1 # number of L2 aggregators per host in L2_HOSTS
 
 # The host (not a list of hosts) that run L3 aggregator
-L3_HOST = "nid00065"
+L3_HOST = "DISABLED"
 
 # The listening port of a daemon will be `base + daemon_index` and
 # `HOST-PORT` becomes the name of the daemon. If a host run multiple levels of
