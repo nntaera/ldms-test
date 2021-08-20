@@ -44,7 +44,7 @@ def _nodes(num_lst):
 if True: # Full voltrino: 16 samp hosts
     # List of hosts to run sampler daemons
     SAMP_HOSTS = _nodes(list(range(20, 32)) + list(range(52, 56)))
-    SAMP_PER_HOST = 4 # number of sampler daemons per host in SAMP_HOSTS
+    SAMP_PER_HOST = 10 # number of sampler daemons per host in SAMP_HOSTS
     SETS_PER_SAMP = 16 # number of sets per sampler daemon
     MEM_PER_SET = 4096 # bytes per set
 
