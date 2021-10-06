@@ -636,6 +636,9 @@ class LDMSD_L1(LDMSD):
 
     def getConfig(self):
         _tmp = io.StringIO()
+        _tmp.write("env ZAP_UGNI_EP_GRAIN=2048\n")
+        _tmp.write("env ZAP_UGNI_RDMA_CQ_DEPTH=1048576\n")
+        _tmp.write("env ZAP_UGNI_RECV_CQ_DEPTH=1048576\n")
         _tmp.write(LISTEN_CFG_TMP.format(**vars(self)))
         for name in self.getPrdcr():
             host, port = name.rsplit("-", 1)
@@ -661,6 +664,9 @@ class LDMSD_L2(LDMSD):
 
     def getConfig(self):
         _tmp = io.StringIO()
+        _tmp.write("env ZAP_UGNI_EP_GRAIN=2048\n")
+        _tmp.write("env ZAP_UGNI_RDMA_CQ_DEPTH=1048576\n")
+        _tmp.write("env ZAP_UGNI_RECV_CQ_DEPTH=1048576\n")
         _tmp.write(LISTEN_CFG_TMP.format(**vars(self)))
         for name in self.getPrdcr():
             host, port = name.rsplit("-", 1)
@@ -695,6 +701,9 @@ class LDMSD_L3(LDMSD):
 
     def getConfig(self):
         _tmp = io.StringIO()
+        _tmp.write("env ZAP_UGNI_EP_GRAIN=2048\n")
+        _tmp.write("env ZAP_UGNI_RDMA_CQ_DEPTH=1048576\n")
+        _tmp.write("env ZAP_UGNI_RECV_CQ_DEPTH=1048576\n")
         _tmp.write(LISTEN_CFG_TMP.format(**vars(self)))
         for name in L2_AGGS:
             host, port = name.rsplit("-", 1)
